@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.container
+{
+    text-align: center;   
+}
+.container .field-pai
+{
+    display: inline;
+    width: 400px;
+    padding: 10px 2px;
+}
+.botoes .field-filho
+{
+    width: 300px;
+}
+.field-filho-2
+{
+    width: 100px;
+}
+.container-2
+{
+    display: flex;
+}
+/*----------BOTÕES---------------*/
+.field-filho-2 .botoes
+{
+
+}
+.field-filho-2 .botoes button, .field-filho .botoes button
+{
+    width: 7em; 
+    height: 4em;
+    padding: 2px;
+}
+.field-filho .botoes
+{
+    margin: 6px;
+    padding-top: 3em;
+    padding-bottom: 2em;
+}
+.field-filho-2 .botoes
+{
+    margin: 14px 7px;
+}
+.field-filho-2 .botoes button
+{
+    width: 6em; 
+    height: 3.2em;
+    margin: 2px;
+}
+.digits
+{
+    font-size: 2em;
+}
+.digits-1
+{
+    font-size: 1.5em;
+}
+/*--------DISPLAY-----------*/
+.screen-pai
+{
+    border: 1px solid #333;
+    height: 4em;
+    text-align: center;
+    margin: 1px;
+    padding-bottom: 10px;
+}
+.screen-pai .screen
+{
+    display: inline-block;
+    text-align: right;
+    border: 1px solid #333;
+    height: 3em;
+    width: 15em;
+    margin: 10px;
+    border-radius: 5%;   
+}
+.screen-pai .screen #result
+{
+    font-size: 30px;
+    padding-right: 4px;
+}
