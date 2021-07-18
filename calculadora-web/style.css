@@ -34,6 +34,7 @@
     width: 7em; 
     height: 4em;
     padding: 2px;
+    
 }
 .field-filho .botoes
 {
@@ -51,6 +52,7 @@
     height: 3.2em;
     margin: 2px;
 }
+
 .digits
 {
     font-size: 2em;
@@ -74,12 +76,15 @@
     text-align: right;
     border: 1px solid #333;
     height: 3em;
-    width: 15em;
+    width: 80%;
     margin: 10px;
     border-radius: 5%;   
+    white-space: nowrap;
+    overflow:hidden;
 }
 .screen-pai .screen #result
 {
     font-size: 30px;
     padding-right: 4px;
+    
 }

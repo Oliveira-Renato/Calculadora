@@ -87,36 +87,3 @@ const botaoBackspace = () => {
     atualizarValor()
 }
 
-
-//Botão igual, responsavel pelas operações aritmtéticas
-const botaoIgual = () => {
-    valor = document.querySelector('#i')
-}
-
-
-//tratamento para fazer a somatória
-const botaoSomar = () => {
-    if(novoNumero) {
-        valor = '0 + ';
-        novoNumero = false;
-    }else  
-        valor += '+';
-        atualizarValor();
-}
-
-
-
-
-
-/***
- * const digito = (n) => {
-    if(novoNumero) {
-        valor = '' + n;
-        novoNumero = false;
-    }else 
-        valor += n;
-        atualizarValor();   
-}
-
-
- */
