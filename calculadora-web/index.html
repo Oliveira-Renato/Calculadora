@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <fieldset class="field-pai">
+        <div class="field-pai">
             <div class="first-div">
                 <!--Tela que sera exibida-->
                 <div class="screen-pai">
@@ -23,9 +23,10 @@
                 <!--Parte dos botões númericos-->
                 <div class="container-2">
                     <div class="botoes">
-                        <fieldset class="field-filho">
+                        <div class="field-filho">
                             <div  class="botoes">
                                 <div>
+                                    <div class='c' ><button onclick="botaoNumero(this.value)"value='ac'><span class="digits">C</span></button></div>
                                     <button onclick="botaoNumero(this.value)" value=1><span class="digits">1</span></button>
                                     <button onclick="botaoNumero(this.value)"value=2><span class="digits">2</span></button>
                                     <button onclick="botaoNumero(this.value)" value=3><span class="digits">3</span></button>
@@ -42,12 +43,12 @@
                                 </div>
                                 <button onclick="botaoNumero(this.value)" class='btn-0' value=0><span class="digits">0</span></button>
                                 <button onclick="botaoNumero(this.value)" value=','><span class="digits">,</span></button>
-                                <button onclick="botaoNumero(this.value)" value='ac'><span class="digits">C</span></button>
+                                
                             </div>
-                        </fieldset>
+                        </div>
                     </div>
                        <!--Parte dos botões que executam as operações-->
-                    <fieldset class="field-filho-2">
+                    <div class="field-filho-2">
                         <div class="botoes">
                             <button onclick="botaoNumero(this.value)" value='clear'><span class="digits-1">⌫ </span></button><br>
                             <button onclick="botaoNumero(this.value)" value='somar'><span class="digits">+</span></button><br>
@@ -56,11 +57,11 @@
                             <button><span class="digits">÷</span></button>
                             <button onclick="botaoNumero(this.value)" value='igual'><span class="digits">=</span></button>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
             </div>
 
-        </fieldset>
+        </div>
     </div>
     
 </body>
