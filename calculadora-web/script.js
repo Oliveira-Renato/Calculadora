@@ -1,6 +1,9 @@
 //variaveis para definir os valores e operações
 let valor = '0';
 let novoNumero = true;
+let n1;
+let n2;
+let resultado;
 
 //função principal, ela receberá os valores e fazer chamados dos metodos necessarios
 const botaoNumero = (batata) => {
@@ -10,10 +13,10 @@ const botaoNumero = (batata) => {
         botaoAc();
     }else if(batata == 'clear') {
         botaoBackspace();
-    }else if(batata == 'somar') {
-        botaoSomar();
-    }else if(batata == 'igual') {
-        botaoIgual();
+    }else if(batata == 'op') {
+        tratamento(batata)
+    }else if(batata == '=') {
+        botaoCalcular();
     }
     else
         digito(batata);//chama função digito para concatenar os valores
@@ -63,6 +66,7 @@ const virgula = () => {
         valor += ',';
         digito(' ')
         atualizarValor();
+    
         
 }
 
@@ -72,6 +76,7 @@ const virgula = () => {
 const botaoAc = () => {
         novoNumero = true;
         valor = '0';
+        document.querySelector('#result-2').innerText = ''
         atualizarValor();  
 }
 
@@ -87,3 +92,59 @@ const botaoBackspace = () => {
     atualizarValor()
 }
 
+
+
+
+//Função para operações
+const tratamento = (pa) => {
+      
+    switch(pa) {
+        case 'op':
+           n1=  valor+'+';
+           teste(n1)
+           zerarDisplay();
+           verificar();
+        break;
+        case 'op-2':digito();
+        break;
+        case 'op-3':digito();
+        break;
+        case 'op-4':digito();
+        break;
+      }
+
+        
+}
+function teste(n) {
+    document.querySelector('#result-2').innerText = n;
+}
+
+const zerarDisplay = () => {
+    novoNumero = true;
+        valor = '';
+        atualizarValor(); 
+}
+const verificar = () => {
+    if(n1.indexOf('+') != -1)     {
+        
+    }else
+        atualizarValor()
+    
+}
+
+
+///BOTÃO CALCULAR
+const botaoCalcular = () => {
+    novoNumero= true
+    let c = parseFloat(n1)
+    let b = parseFloat(valor)
+    let a
+    if(novoNumero){
+        valor = c + b
+        document.querySelector('#result').innerText = valor.toString()
+        atualizarValor()
+        novoNumero= false
+    }
+    
+    
+}

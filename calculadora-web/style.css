@@ -80,6 +80,10 @@
     font-size: 1.5em;
 }
 /*--------DISPLAY-----------*/
+.screen-2
+{
+    border: 1px solid #fff; 
+}
 .screen-pai
 {
     border: 1px solid #333;
@@ -103,6 +107,5 @@
 .screen-pai .screen #result
 {
     font-size: 30px;
-    padding-right: 4px;
-    
+    padding-right: 4px;   
 }
