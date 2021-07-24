@@ -1,11 +1,13 @@
 //variaveis para definir os valores e operações
-let valor = '0';
-let novoNumero = true;
-let n1;
-let n2;
-let resultado;
+let valor = '0';//valor atual 
+let novoNumero = true;//responsavel por verificar nova entrada de digitos
+let firstValor=0;//separa os primeiros valores para realizar os calculos
+let operacaoEspera = null;//responsavel por receber o operador para executar o calculo
 
-//função principal, ela receberá os valores e fazer chamados dos metodos necessarios
+/**
+ * 
+ * batata = parametro com os valores a serem tratados  
+ */
 const botaoNumero = (batata) => {
     if (batata == ',') {
         virgula();
@@ -13,13 +15,25 @@ const botaoNumero = (batata) => {
         botaoAc();
     }else if(batata == 'clear') {
         botaoBackspace();
-    }else if(batata == 'op') {
-        tratamento(batata)
     }else if(batata == '=') {
-        botaoCalcular();
+        teste(batata)
+        operador();
     }
     else
         digito(batata);//chama função digito para concatenar os valores
+}
+
+
+/**
+ * sapo= parametro responsavel para levar a oparação que deve ser executada
+ * 
+ */
+const operacaoCal = (sapo) => {
+    if(sapo == '+' || '-' || 'x' || '÷') {
+        operador(sapo);
+        teste(sapo)
+     } else
+        console.log('erro')
 }
 
 
@@ -27,7 +41,7 @@ const botaoNumero = (batata) => {
 const atualizarValor = () => {   
     let [parteInteira, parteDecimal] = valor.split(',');
     let valor2 = '';
-    beterraba = 0;
+    let beterraba = 0;
     
     for(let i = parteInteira.length-1; i >= 0; i--) {
         if (++beterraba > 3) {
@@ -71,15 +85,16 @@ const virgula = () => {
 }
 
 
-
 //tratamento do botão AC(ALL CLEAR)
 const botaoAc = () => {
         novoNumero = true;
         valor = '0';
+        firstValor = 0;
         document.querySelector('#result-2').innerText = ''
+        operacaoEspera = null;
+        //document.querySelector('#result-2').innerText = ''
         atualizarValor();  
 }
-
 
 //tratamento do botão backspace
 const botaoBackspace = () => {
@@ -92,9 +107,54 @@ const botaoBackspace = () => {
     atualizarValor()
 }
 
+//converte o valor atual em float number
+const convertValor = () => parseFloat(valor.replace('.',','))
+
+/**
+ * op=operadores aritmeticos
+ * 
+ */
+const operador = (op) => {
+    calcular();
+    firstValor = convertValor();
+    operacaoEspera=op;
+    novoNumero = true;
+}
+
+//responsavel por realizar os calculos
+const calcular = () => {
+    if(operacaoEspera != null) {
+        let resultado = 0;
+        switch(operacaoEspera) {
+            case '+':
+                resultado = firstValor + convertValor();
+                break;
+            case '-':
+                resultado = firstValor - convertValor();
+                break;
+            case 'x':
+                resultado = firstValor * convertValor();
+                break;
+            case '÷':
+                resultado = firstValor / convertValor();
+                break;
+        }
+        valor = resultado.toString().replace(',','.')//convertendo o resultado em string
+    }
+    novoNumero = true;
+    operacaoEspera = null;
+    firstValor = 0;
+    atualizarValor(); 
+}
+
+
+const teste = (bol) => {
+    document.querySelector('#result-2').innerText = firstValor + bol;
+}
 
 
 
+/*
 //Função para operações
 const tratamento = (pa) => {
       
@@ -115,9 +175,6 @@ const tratamento = (pa) => {
 
         
 }
-function teste(n) {
-    document.querySelector('#result-2').innerText = n;
-}
 
 const zerarDisplay = () => {
     novoNumero = true;
@@ -125,8 +182,8 @@ const zerarDisplay = () => {
         atualizarValor(); 
 }
 const verificar = () => {
-    if(n1.indexOf('+') != -1)     {
-        
+    if(n1.indexOf('+') != -1)     {//se tive
+        console.log('lol')
     }else
         atualizarValor()
     
@@ -138,7 +195,7 @@ const botaoCalcular = () => {
     novoNumero= true
     let c = parseFloat(n1)
     let b = parseFloat(valor)
-    let a
+
     if(novoNumero){
         valor = c + b
         document.querySelector('#result').innerText = valor.toString()
@@ -148,3 +205,5 @@ const botaoCalcular = () => {
     
     
 }
+
+*/
