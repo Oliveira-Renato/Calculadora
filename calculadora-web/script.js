@@ -139,7 +139,7 @@ const calcular = () => {
                 resultado = firstValor / convertValor();
                 break;
         }
-        valor = resultado.toString().replace(',','.')//convertendo o resultado em string
+        valor = resultado.toString()//convertendo o resultado em string
     }
     novoNumero = true;
     operacaoEspera = null;
@@ -149,10 +149,10 @@ const calcular = () => {
 
 
 const teste = (bol) => {
-    document.querySelector('#result-2').innerText = firstValor + bol;
+    document.querySelector('#result-2').innerText = firstValor + " " + bol;
 }
 const outroTeste = (bol) => {
-    document.querySelector('#result-2').innerText = firstValor + operacaoEspera + valor  + bol;
+    document.querySelector('#result-2').innerText = firstValor + " "+ operacaoEspera + " " + valor  + bol;
 }
 
 
