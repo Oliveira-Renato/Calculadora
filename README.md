@@ -1,2 +1,3 @@
 # Calculadora
-Usando HTML, CSS E JavaScript para criar uma calculadora bacana
+### Criando uma calculadora web super bacana usando HTML, CSS e JavaSript. :smiley:
+
