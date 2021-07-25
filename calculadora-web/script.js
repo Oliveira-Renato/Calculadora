@@ -16,7 +16,7 @@ const botaoNumero = (batata) => {
     }else if(batata == 'clear') {
         botaoBackspace();
     }else if(batata == '=') {
-        teste(batata)
+        outroTeste(batata)
         operador();
     }
     else
@@ -150,6 +150,9 @@ const calcular = () => {
 
 const teste = (bol) => {
     document.querySelector('#result-2').innerText = firstValor + bol;
+}
+const outroTeste = (bol) => {
+    document.querySelector('#result-2').innerText = firstValor + operacaoEspera + valor  + bol;
 }
 
 
