@@ -192,28 +192,30 @@ body
 }
 
 /*====== MEDIA QUERY =======*/
+
+/*=========== SMALL DEVICES ===========*/
 @media (max-width: 350px){
     :root {
         font-size: 55.5%;
     }
 }
-
-
-/*====== MEDIA QUERY =======*/
 @media (max-width: 350px){
     :root {
         font-size: 50.5%;
     }
 }
-
-
-
-/*====== MEDIA QUERY =======*/
 @media (max-width: 280px){
     :root {
         font-size: 47.5%;
     }
     .container {
         display: grid;
+    }
+}
+
+/*=========== LARGE DEVICES ===========*/
+@media (min-width: 1000px){
+    :root {
+        font-size: 82.5%;
     }
 }
