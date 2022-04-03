@@ -1,3 +1,5 @@
+
+
 *{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: normal;
@@ -190,6 +192,130 @@ body
     padding-top: 1rem;
     padding-right: 1.5rem;
 }
+
+.container a{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,.9);
+    font-size: 15px;
+    transition: 0.5s;
+    overflow: hidden;
+    letter-spacing: 2px;
+    background: #161617;
+    width: 180px;
+    height: 60px;
+    margin-top: -30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400px;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+    border-radius: 6px;
+
+
+   
+
+    
+    
+
+    
+
+}
+.container a:hover{
+    background: #e94b3cff;
+    color: rgba(255,255,255,1);
+    box-shadow: 0 0 5px #e94b3cff,
+                0 0 25px #e94b3cff,
+                0 0 50px #e94b3cff,
+                0 0 200px #e94b3cff;
+    opacity: 0.9;
+
+}
+
+
+.container a span{
+    position: absolute;
+    display: block;
+}
+.container a span:nth-child(1){
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #e94b3cff);
+    animation: animate1 1s linear infinite;
+}
+
+@keyframes animate1{
+    0%{
+        left: -100%;
+    }
+    50%, 100%{
+        left: 100%;
+    }
+}
+
+.container a span:nth-child(2){
+    top: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #e94b3cff);
+    animation: animate2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+
+@keyframes animate2{
+    0%{
+        top: -100%;
+    }
+    50%, 100%{
+        top: 100%;
+    }
+}
+
+.container a span:nth-child(3){
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(270deg, transparent, #e94b3cff);
+    animation: animate3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes animate3{
+    0%{
+        right: -100%;
+    }
+    50%, 100%{
+        right: 100%;
+    }
+}
+
+.container a span:nth-child(4){
+    bottom: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #e94b3cff);
+    animation: animate4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+
+@keyframes animate4{
+    0%{
+        bottom: -100%;
+    }
+    50%, 100%{
+        bottom: 100%;
+    }
+}
+
+
+
+
+
 
 /*====== MEDIA QUERY =======*/
 
