@@ -1,37 +1,173 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import $ from 'jquery'
 import './styles/global.scss';
-import {DigitsButton} from './components/digits_button/index';
-import { log } from 'console';
 
 type InputsContent = {
-  input?: string | undefined,
+  input?: string,
+  digits?: number,
+}
+
+function App() {
+  const result = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const result2 = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  let valor = '0';//valor atual 
+  let novoNumero = true;//responsavel por verificar nova entrada de digitos
+  let firstValor=0;//separa os primeiros valores para realizar os calculos
+  let operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
+  var digits: string = ''
+
+  const onResult = (e: any) => {
+  }
+
+  const onHanldeInput = (teste:string) => {
+      digits = teste && teste;
+      
+      if (digits == ',') {
+        console.log(digits)
+         virgula();
+      }else if(digits == 'ac'){
+         botaoAc();
+      }else if(digits == 'clear') {
+         botaoBackspace();
+      }else if(digits == '=') {
+        //  outroTeste(digits)
+         operador(digits);
+      }
+      else
+        //console.log(digits)
+        digito(digits);//chama função digito para concatenar os valores
+  }
+
+  /**
+ * sapo= parametro responsavel para levar a oparação que deve ser executada
+ * 
+ */
+ const operacaoCal = (sapo:any) => {
+   if(sapo == '+' || '-' || 'x' || '÷') {
+       operador(sapo);
+       teste(sapo)
+    } else
+       console.log('erro')
+ }
+
+
+//função responsavel por exibir os valores na calculadora
+const atualizarValor = () => {   
+  let [parteInteira, parteDecimal] = valor.split(',');
+  
+  let valor2 = '';
+  let beterraba = 0;
+  
+  for(let i = parteInteira.length-1; i >= 0; i--) {
+      if (++beterraba > 3) {
+          valor2 = '.' + valor2;
+          beterraba = 1;
+      }
+      valor2 =parteInteira[i] + valor2;
+  }
+
+  valor2 = valor2 + (parteDecimal?  ',' + parteDecimal: '');
+  valor2 = valor2.replace(/\s/g, '');
+  result.current.innerText =  valor2 && (valor2);
 }
 
 
-function App() {
-  var [digits, setDigits] = useState<InputsContent>();
-  var [valor, setValor] = useState('');
-  var [newNumber, setNewNumber] = useState(true);
+
+//função para arrumar os numeros
+const digito = (n:any) => {
+  if(novoNumero) {
+      valor = '' + n;
+      novoNumero = false;
+  }else 
+      valor += n;
+      atualizarValor();   
+}
 
 
-  const onHanldeInput = (event:any) => {
-      digits = event.target.value;
-      if (digits == ',') {
-        console.log(digits)
-         // virgula();
-      }else if(digits == 'ac'){
-         // botaoAc();
-      }else if(digits == 'clear') {
-         // botaoBackspace();
-      }else if(digits == '=') {
-        console.log(digits)
-         // outroTeste(pInp)
-         // operador();
-      }
-      else
-      console.log(digits)
-        //  digito(pInp);//chama função digito para concatenar os valores
+
+// //tratamento da virgula
+const virgula = () => {
+  if(novoNumero) {
+      valor = '0,';
+      novoNumero = false;
+  }else if(valor.indexOf(',') == -1) //se valor já possuir uma virgula, então a função retornará -1 e não exibirá outra virgula
+      valor += ',';
+      digito(' ')
+      atualizarValor();
+  
+      
+}
+
+
+// //tratamento do botão AC(ALL CLEAR)
+const botaoAc = () => {
+      novoNumero = true;
+      valor = '0';
+      firstValor = 0;
+      result.current.innerText = ' '
+      operacaoEspera = null;
+      result2.current.innerText = ' '
+      atualizarValor();   
+}
+
+// //tratamento do botão backspace
+const botaoBackspace = () => {
+  novoNumero = true;
+  valor = valor.slice(0, -1)
+  
+  if(novoNumero && valor =='') {
+      valor = '0';
   }
+  atualizarValor()
+}
+
+// //converte o valor atual em float number
+const convertValor = () => parseFloat(valor.replace('.',','))
+
+// /**
+// * op=operadores aritmeticos
+// * 
+// */
+const operador = (op:any) => {
+  calcular();
+  firstValor = convertValor();
+  operacaoEspera=op;
+  novoNumero = true;
+}
+
+// //responsavel por realizar os calculos
+const calcular = () => {
+  if(operacaoEspera != null) {
+      let resultado = 0;
+      switch(operacaoEspera) {
+          case '+':
+              resultado = firstValor + convertValor();
+              break;
+          case '-':
+              resultado = firstValor - convertValor();
+              break;
+          case 'x':
+              resultado = firstValor * convertValor();
+              break;
+          case '÷':
+              resultado = firstValor / convertValor();
+              break;
+      }
+      valor = resultado.toString()//convertendo o resultado em string
+  }
+  novoNumero = true;
+  operacaoEspera = null;
+  firstValor = 0;
+  atualizarValor(); 
+}
+
+
+const teste = (bol:string) => {
+  result2.current.innerText = "" + firstValor + " " + bol + "";
+}
+const outroTeste = (bol:any) => {
+  result2.current.innerText ="" + firstValor + " " + operacaoEspera + " " + valor  + bol && (bol);
+}
 
   return (
     <div className="App">
@@ -41,9 +177,9 @@ function App() {
           <div className="screen-pai">
               <div className="screen">
                   <div className="screen-2">
-                      <span id="result-2"></span>
+                      <span ref={result2} id="result-2"></span>
                   </div>
-                  <span id="result">
+                  <span ref={result} id="result-1">
                       0
                   </span>
               </div>
@@ -56,37 +192,37 @@ function App() {
                         <div  className="botoes">
                             <div>
                                 <div className='c' >
-                                  <button value='ac' className="clear"><span className="digits">C</span></button>
+                                  <button onClick={() => onHanldeInput('ac')} value='ac' className="clear"><span className="digits">C</span></button>
                                 </div>
-                                <button  onClick={onHanldeInput} value={7} id="sa" ><span className="digits">7</span></button>
-                                <button onClick={onHanldeInput} value={8} ><span className="digits">8</span></button>
-                                <button onClick={onHanldeInput} value={9} ><span className="digits">9</span></button>
+                                <button  onClick={() => onHanldeInput('7')}  id="sa" ><span className="digits">7</span></button>
+                                <button  value={'8'} onClick={() => onHanldeInput('8')} ><span className="digits">8</span></button>
+                                <button onClick={() => onHanldeInput('9')} value={9} ><span className="digits">9</span></button>
                                 
                             </div>
                             <div>
-                                <button onClick={onHanldeInput}  value={4}><span className="digits">4</span></button>
-                                <button onClick={onHanldeInput} value={5}><span className="digits">5</span></button>
-                                <button onClick={onHanldeInput} value={6}><span className="digits">6</span></button>
+                                <button onClick={() => onHanldeInput('4')}  value={4}><span className="digits">4</span></button>
+                                <button onClick={() => onHanldeInput('5')} value={5}><span className="digits">5</span></button>
+                                <button onClick={() => onHanldeInput('6')} value={6}><span className="digits">6</span></button>
                             </div>
                             <div>
-                                <button onClick={onHanldeInput} value={1}><span className="digits">1</span></button>
-                                <button onClick={onHanldeInput} value={2}><span className="digits">2</span></button>
-                                <button onClick={onHanldeInput} value={3}><span className="digits">3</span></button>
+                                <button onClick={() => onHanldeInput('1')} value={1}><span className="digits">1</span></button>
+                                <button onClick={() => onHanldeInput('2')} value={2}><span className="digits">2</span></button>
+                                <button onClick={() => onHanldeInput('3')} value={3}><span className="digits">3</span></button>
                             </div>
-                            <button onClick={onHanldeInput}  className='btn-0'><span className="digits">0</span></button>
-                            <button onClick={onHanldeInput}  value=','><span className="digits">,</span></button>
+                            <button onClick={() => onHanldeInput('0')}  className='btn-0'><span className="digits">0</span></button>
+                            <button onClick={() => onHanldeInput(',')}  value=','><span className="digits">,</span></button>
                         </div>
                     </div>
                 </div>
                   {/* //  <!--Parte dos botões que executam as operações--> */}
                 <div className="field-filho-2">
                     <div className="botoes">
-                        <button onClick={onHanldeInput} value='clear' className="backspc"><span className="digits-1 ">⌫ </span></button><br />
-                        <button  value='+'><span className="digits">+</span></button><br />
-                        <button  value='-'><span className="digits">-</span></button><br />
-                        <button  value='x'><span className="digits-1">x</span></button><br />
-                        <button  value='÷'><span className="digits">÷</span></button>
-                        <button onClick={onHanldeInput} value='='><span className="digits">=</span></button>
+                        <button onClick={() => onHanldeInput('clear')} value='clear' className="backspc"><span className="digits-1 ">⌫ </span></button><br />
+                        <button onClick={()=>operacaoCal('+')} value='+'><span className="digits">+</span></button><br />
+                        <button onClick={()=>operacaoCal('-')} value='-'><span className="digits">-</span></button><br />
+                        <button onClick={()=>operacaoCal('x')} value='x'><span className="digits-1">x</span></button><br />
+                        <button onClick={()=>operacaoCal('÷')} value='÷'><span className="digits">÷</span></button>
+                        <button onClick={() => onHanldeInput('=')} value='='><span className="digits">=</span></button>
                     </div>
                 </div>
             </div>

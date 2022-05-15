@@ -22,5 +22,6 @@
   },
   "include": [
     "src",
+    "src/pages/home/home.tsx",
   ]
 }
