@@ -37,7 +37,7 @@ function App() {
       }
   }
 
-/**
+  /**
  * sapo= parametro responsavel para levar a oparação que deve ser executada
  * 
  */
@@ -48,11 +48,15 @@ function App() {
 //função responsavel por exibir os valores na calculadora
 const atualizarValor = () => {   
   let [parteInteira, parteDecimal] = valor.split(',');
+
   let valor2 = '';
   let beterraba = 0;
   
   for(let i = parteInteira.length-1; i >= 0; i--) {
-     if( ++beterraba > 3) valor2 = '.' + valor2; beterraba = 1;
+      if (++beterraba > 3) {
+          valor2 = '.' + valor2;
+          beterraba = 1;
+      }
       valor2 =parteInteira[i] + valor2;
   }
 
@@ -66,24 +70,25 @@ const digito = (n:any) => {
   if(novoNumero) {
       valor = '' + n;
       novoNumero = false;
-  }else valor += n;
-      atualizarValor();   
+  }else {
+      valor += n;
+      atualizarValor();
+  }   
 }
-
 
 //tratamento da virgula
 const virgula = () => {
   if(novoNumero) {
-      valor = '0,';
-      novoNumero = false;
-  }else if(valor.indexOf(',') == -1) //se valor já possuir uma virgula, então a função retornará -1 e não exibirá outra virgula
-      valor += ',';
-      digito(' ')
-      atualizarValor();  
+    valor = '0,';
+    novoNumero = false;
+  }
+  if(valor.indexOf(',') == -1) {
+    valor += ',';
+    digito(' ');
+    atualizarValor();
+  }
 }
 
-
-// //tratamento do botão AC(ALL CLEAR)
 const botaoAc = () => {
       novoNumero = true;
       valor = '0';
@@ -94,24 +99,16 @@ const botaoAc = () => {
       atualizarValor();   
 }
 
-// //tratamento do botão backspace
 const botaoBackspace = () => {
   novoNumero = true;
   valor = valor.slice(0, -1)
   
-  if(novoNumero && valor =='') {
-      valor = '0';
-  }
+  novoNumero && valor =='' && (valor = '0') ;
   atualizarValor()
 }
-
-// //converte o valor atual em float number
+//converte o valor atual em float number
 const convertValor = () => parseFloat(valor.replace('.',','))
 
-// /**
-// * op=operadores aritmeticos
-// * 
-// */
 const operador = (op:any) => {
   calcular();
   firstValor = convertValor();
@@ -119,7 +116,6 @@ const operador = (op:any) => {
   novoNumero = true;
 }
 
-// //responsavel por realizar os calculos
 const calcular = () => {
   if(operacaoEspera != null) {
       let resultado = 0;
@@ -144,7 +140,6 @@ const calcular = () => {
   firstValor = 0;
   atualizarValor(); 
 }
-
 
 const teste = (bol:string) => {
   result2.current.innerText = "" + firstValor + " " + bol + "";
