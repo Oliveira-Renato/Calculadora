@@ -10,14 +10,17 @@ type InputsContent = {
 function App() {
   const result = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const result2 = React.useRef() as React.MutableRefObject<HTMLInputElement>;
-  let valor = '0';//valor atual 
+  let valor = '0';
   let novoNumero = true;//responsavel por verificar nova entrada de digitos
   let firstValor=0;//separa os primeiros valores para realizar os calculos
   let operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
+  var resultState = '';
+  var listInputs = [''];
 
   function onHanldeInput (pInput:string) {
       digits = pInput && pInput;
+
       switch(digits){
         case ',' :
           virgula();
@@ -29,7 +32,9 @@ function App() {
           botaoBackspace();
           break;
         case '=' :
+          listInputs.push(result.current.innerText);
           operador(digits);
+          outroTeste(digits);
           break;
         default:
           digito(digits);
@@ -37,8 +42,9 @@ function App() {
       }
   }
 
-  const operacaoCal = (sapo:any) => {
-    if(sapo == '+' || '-' || 'x' || '÷') operador(sapo);teste(sapo)
+  const operacaoCal = (pOperador:any) => {
+    listInputs.push(result.current.innerText);
+    if(pOperador == '+' || '-' || '*' || '÷') operador(pOperador);teste(pOperador)
   }
 
   const atualizarValor = () => {   
@@ -59,11 +65,11 @@ function App() {
     result.current.innerText =  valor2 && (valor2);
   }
 
-  const digito = (n:any) => {
+  const digito = (pInput:any) => {
     if(novoNumero) {
-      valor = '' + n;
+      valor = '' + pInput;
       novoNumero = false;
-    }else valor += n;
+    }else valor += pInput;
     atualizarValor();
   }
 
@@ -71,6 +77,7 @@ function App() {
     if(novoNumero) {
       valor = '0,';
       novoNumero = false;
+      
     }else if(valor.indexOf(',') == -1) {
       valor += ',';
       digito(' ');
@@ -98,10 +105,10 @@ function App() {
 
   const convertValor = () => parseFloat(valor.replace('.',','))
 
-  const operador = (op:any) => {
+  const operador = (pOperador:any) => {
     calcular();
     firstValor = convertValor();
-    operacaoEspera=op;
+    operacaoEspera=pOperador;
     novoNumero = true;
   }
 
@@ -115,7 +122,7 @@ function App() {
             case '-':
                 resultado = firstValor - convertValor();
                 break;
-            case 'x':
+            case '*':
                 resultado = firstValor * convertValor();
                 break;
             case '÷':
@@ -131,10 +138,11 @@ function App() {
   }
 
   const teste = (bol:string) => {
-    result2.current.innerText = "" + firstValor + " " + bol + "";
+    resultState = "" + result2.current.innerText + "" + firstValor + " " + bol + ""; 
+    result2.current.innerText = "" + firstValor + " " + bol + ""; 
   }
   const outroTeste = (bol:any) => {
-    result2.current.innerText ="" + firstValor + " " + operacaoEspera + " " + valor  + bol && (bol);
+    result2.current.innerText ="" + resultState + " " + listInputs[listInputs.length-1]  + " " + bol + "";
   }
 
   return (
@@ -188,7 +196,7 @@ function App() {
                         <button onClick={() => onHanldeInput('clear')} value='clear' className="backspc"><span className="digits-1 ">⌫ </span></button><br />
                         <button onClick={()=>operacaoCal('+')} value='+'><span className="digits">+</span></button><br />
                         <button onClick={()=>operacaoCal('-')} value='-'><span className="digits">-</span></button><br />
-                        <button onClick={()=>operacaoCal('x')} value='x'><span className="digits-1">x</span></button><br />
+                        <button onClick={()=>operacaoCal('*')} value='*'><span className="digits-1">*</span></button><br />
                         <button onClick={()=>operacaoCal('÷')} value='÷'><span className="digits">÷</span></button>
                         <button onClick={() => onHanldeInput('=')} value='='><span className="digits">=</span></button>
                     </div>
