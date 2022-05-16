@@ -37,116 +37,105 @@ function App() {
       }
   }
 
-  /**
- * sapo= parametro responsavel para levar a oparação que deve ser executada
- * 
- */
- const operacaoCal = (sapo:any) => {
-   if(sapo == '+' || '-' || 'x' || '÷') operador(sapo);teste(sapo)
- }
-
-//função responsavel por exibir os valores na calculadora
-const atualizarValor = () => {   
-  let [parteInteira, parteDecimal] = valor.split(',');
-
-  let valor2 = '';
-  let beterraba = 0;
-  
-  for(let i = parteInteira.length-1; i >= 0; i--) {
-      if (++beterraba > 3) {
-          valor2 = '.' + valor2;
-          beterraba = 1;
-      }
-      valor2 =parteInteira[i] + valor2;
+  const operacaoCal = (sapo:any) => {
+    if(sapo == '+' || '-' || 'x' || '÷') operador(sapo);teste(sapo)
   }
 
-  valor2 = valor2 + (parteDecimal?  ',' + parteDecimal: '');
-  valor2 = valor2.replace(/\s/g, '');
-  result.current.innerText =  valor2 && (valor2);
-}
+  const atualizarValor = () => {   
+    let [parteInteira, parteDecimal] = valor.split(',');
+    let valor2 = '';
+    let beterraba = 0;
+    
+    for(let i = parteInteira.length-1; i >= 0; i--) {
+        if (++beterraba > 3) {
+            valor2 = '.' + valor2;
+            beterraba = 1;
+        }
+        valor2 =parteInteira[i] + valor2;
+    }
 
-//função para arrumar os numeros
-const digito = (n:any) => {
-  if(novoNumero) {
+    valor2 = valor2 + (parteDecimal?  ',' + parteDecimal: '');
+    valor2 = valor2.replace(/\s/g, '');
+    result.current.innerText =  valor2 && (valor2);
+  }
+
+  const digito = (n:any) => {
+    if(novoNumero) {
       valor = '' + n;
       novoNumero = false;
-  }else {
-      valor += n;
-      atualizarValor();
-  }   
-}
-
-//tratamento da virgula
-const virgula = () => {
-  if(novoNumero) {
-    valor = '0,';
-    novoNumero = false;
-  }
-  if(valor.indexOf(',') == -1) {
-    valor += ',';
-    digito(' ');
+    }else valor += n;
     atualizarValor();
   }
-}
 
-const botaoAc = () => {
-      novoNumero = true;
-      valor = '0';
-      firstValor = 0;
-      result.current.innerText = ' '
-      operacaoEspera = null;
-      result2.current.innerText = ' '
-      atualizarValor();   
-}
-
-const botaoBackspace = () => {
-  novoNumero = true;
-  valor = valor.slice(0, -1)
-  
-  novoNumero && valor =='' && (valor = '0') ;
-  atualizarValor()
-}
-//converte o valor atual em float number
-const convertValor = () => parseFloat(valor.replace('.',','))
-
-const operador = (op:any) => {
-  calcular();
-  firstValor = convertValor();
-  operacaoEspera=op;
-  novoNumero = true;
-}
-
-const calcular = () => {
-  if(operacaoEspera != null) {
-      let resultado = 0;
-      switch(operacaoEspera) {
-          case '+':
-              resultado = firstValor + convertValor();
-              break;
-          case '-':
-              resultado = firstValor - convertValor();
-              break;
-          case 'x':
-              resultado = firstValor * convertValor();
-              break;
-          case '÷':
-              resultado = firstValor / convertValor();
-              break;
-      }
-      valor = resultado.toString()//convertendo o resultado em string
+  const virgula = () => {
+    if(novoNumero) {
+      valor = '0,';
+      novoNumero = false;
+    }else if(valor.indexOf(',') == -1) {
+      valor += ',';
+      digito(' ');
+      atualizarValor();
+    }
   }
-  novoNumero = true;
-  operacaoEspera = null;
-  firstValor = 0;
-  atualizarValor(); 
-}
 
-const teste = (bol:string) => {
-  result2.current.innerText = "" + firstValor + " " + bol + "";
-}
-const outroTeste = (bol:any) => {
-  result2.current.innerText ="" + firstValor + " " + operacaoEspera + " " + valor  + bol && (bol);
-}
+  const botaoAc = () => {
+    novoNumero = true;
+    valor = '0';
+    firstValor = 0;
+    result.current.innerText = ' '
+    operacaoEspera = null;
+    result2.current.innerText = ' '
+    atualizarValor();   
+  }
+
+  const botaoBackspace = () => {
+    novoNumero = true;
+    valor = valor.slice(0, -1)
+    
+    novoNumero && valor =='' && (valor = '0') ;
+    atualizarValor()
+  }
+
+  const convertValor = () => parseFloat(valor.replace('.',','))
+
+  const operador = (op:any) => {
+    calcular();
+    firstValor = convertValor();
+    operacaoEspera=op;
+    novoNumero = true;
+  }
+
+  function calcular() { 
+    if(operacaoEspera != null) {
+        let resultado = 0;
+        switch(operacaoEspera) {
+            case '+':
+                resultado = firstValor + convertValor();
+                break;
+            case '-':
+                resultado = firstValor - convertValor();
+                break;
+            case 'x':
+                resultado = firstValor * convertValor();
+                break;
+            case '÷':
+                resultado = firstValor / convertValor();
+                break;
+        }
+        valor = resultado.toString();
+    }
+    novoNumero = true;
+    operacaoEspera = null;
+    firstValor = 0;
+    atualizarValor(); 
+  }
+
+  const teste = (bol:string) => {
+    result2.current.innerText = "" + firstValor + " " + bol + "";
+  }
+  const outroTeste = (bol:any) => {
+    result2.current.innerText ="" + firstValor + " " + operacaoEspera + " " + valor  + bol && (bol);
+  }
 
   return (
     <div className="App">
