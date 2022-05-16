@@ -16,53 +16,43 @@ function App() {
   let operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
 
-  const onResult = (e: any) => {
-  }
-
-  const onHanldeInput = (teste:string) => {
-      digits = teste && teste;
-      
-      if (digits == ',') {
-        console.log(digits)
-         virgula();
-      }else if(digits == 'ac'){
-         botaoAc();
-      }else if(digits == 'clear') {
-         botaoBackspace();
-      }else if(digits == '=') {
-        //  outroTeste(digits)
-         operador(digits);
+  function onHanldeInput (pInput:string) {
+      digits = pInput && pInput;
+      switch(digits){
+        case ',' :
+          virgula();
+          break;
+        case 'ac' :
+          botaoAc();
+          break;
+        case 'clear' :
+          botaoBackspace();
+          break;
+        case '=' :
+          operador(digits);
+          break;
+        default:
+          digito(digits);
+          break;
       }
-      else
-        //console.log(digits)
-        digito(digits);//chama função digito para concatenar os valores
   }
 
-  /**
+/**
  * sapo= parametro responsavel para levar a oparação que deve ser executada
  * 
  */
  const operacaoCal = (sapo:any) => {
-   if(sapo == '+' || '-' || 'x' || '÷') {
-       operador(sapo);
-       teste(sapo)
-    } else
-       console.log('erro')
+   if(sapo == '+' || '-' || 'x' || '÷') operador(sapo);teste(sapo)
  }
-
 
 //função responsavel por exibir os valores na calculadora
 const atualizarValor = () => {   
   let [parteInteira, parteDecimal] = valor.split(',');
-  
   let valor2 = '';
   let beterraba = 0;
   
   for(let i = parteInteira.length-1; i >= 0; i--) {
-      if (++beterraba > 3) {
-          valor2 = '.' + valor2;
-          beterraba = 1;
-      }
+     if( ++beterraba > 3) valor2 = '.' + valor2; beterraba = 1;
       valor2 =parteInteira[i] + valor2;
   }
 
@@ -71,21 +61,17 @@ const atualizarValor = () => {
   result.current.innerText =  valor2 && (valor2);
 }
 
-
-
 //função para arrumar os numeros
 const digito = (n:any) => {
   if(novoNumero) {
       valor = '' + n;
       novoNumero = false;
-  }else 
-      valor += n;
+  }else valor += n;
       atualizarValor();   
 }
 
 
-
-// //tratamento da virgula
+//tratamento da virgula
 const virgula = () => {
   if(novoNumero) {
       valor = '0,';
@@ -93,9 +79,7 @@ const virgula = () => {
   }else if(valor.indexOf(',') == -1) //se valor já possuir uma virgula, então a função retornará -1 e não exibirá outra virgula
       valor += ',';
       digito(' ')
-      atualizarValor();
-  
-      
+      atualizarValor();  
 }
 
 

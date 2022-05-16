@@ -155,7 +155,7 @@ textarea {
 }
 
 .screen-pai .screen {
-    display: inline-block;
+    position: relative;
     text-align: right;
     border: 1px solid #aaaaaa48;
     height: 9rem;
@@ -170,16 +170,23 @@ textarea {
 
 .screen-pai .screen #result-1 {
     background-color: #0a0909;
-    display: block;
+    display: flex;
     font-size: 3rem;
     padding-right: 1.5rem;
     font-weight: 700;
+    justify-content: right;
     color: #fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .screen-2 {
-    height: 2rem;
-    padding-top: 1rem;
+    position: absolute;
+    height: 5rem;
+    padding: 1.6rem 1.2rem 0 0;
+    right: 0;
+    top: 0;
 }
 
 .screen-2 #result-2 {
