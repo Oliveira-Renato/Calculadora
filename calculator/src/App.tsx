@@ -10,17 +10,16 @@ type InputsContent = {
 function App() {
   const result = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const result2 = React.useRef() as React.MutableRefObject<HTMLInputElement>;
-  let valor = '0';
-  let novoNumero = true;//responsavel por verificar nova entrada de digitos
-  let firstValor=0;//separa os primeiros valores para realizar os calculos
-  let operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
+  var valor = '0';
+  var novoNumero = true;//responsavel por verificar nova entrada de digitos
+  var firstValor=0;//separa os primeiros valores para realizar os calculos
+  var operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
   var resultState = '';
   var listInputs = [''];
 
   function onHanldeInput (pInput:string) {
       digits = pInput && pInput;
-
       switch(digits){
         case ',' :
           virgula();
@@ -34,7 +33,7 @@ function App() {
         case '=' :
           listInputs.push(result.current.innerText);
           operador(digits);
-          outroTeste(digits);
+          !result2.current.innerText.includes('=') && outroTeste(digits);
           break;
         default:
           digito(digits);
@@ -43,7 +42,7 @@ function App() {
   }
 
   const operacaoCal = (pOperador:any) => {
-    listInputs.push(result.current.innerText);
+    listInputs.push(result.current.innerText); 
     if(pOperador == '+' || '-' || '*' || '÷') operador(pOperador);teste(pOperador)
   }
 
@@ -106,14 +105,17 @@ function App() {
   const convertValor = () => parseFloat(valor.replace('.',','))
 
   const operador = (pOperador:any) => {
-    calcular();
-    firstValor = convertValor();
-    operacaoEspera=pOperador;
-    novoNumero = true;
+    if(!result2.current.innerText.includes('=')) {
+      calcular();
+      firstValor = convertValor();
+      operacaoEspera=pOperador;
+      novoNumero = true;
+    }else atualizarValor();
   }
 
   function calcular() { 
-    if(operacaoEspera != null) {
+    console.log('aqui',result2.current.innerText)
+    if(operacaoEspera != null ) {
         let resultado = 0;
         switch(operacaoEspera) {
             case '+':
