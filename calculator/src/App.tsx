@@ -10,14 +10,15 @@ type InputsContent = {
 function App() {
   const result = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const result2 = React.useRef() as React.MutableRefObject<HTMLInputElement>;
-  var valor = '0';
+  const operators = ['+', '-', '*', '/'];
+  var valor = '';
   var novoNumero = true;//responsavel por verificar nova entrada de digitos
-  var firstValor=0;//separa os primeiros valores para realizar os calculos
   var operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
   var resultState = '';
   var listInputs = [''];
   var listInputs2 = [''];
+  var screen2:string = '';
 
   function onHanldeInput (pInput:string) {
       digits = pInput && pInput;
@@ -35,25 +36,19 @@ function App() {
         case '=' :
           listInputs.push(result.current.innerText);
           operador(digits);
-          !result2.current.innerText.includes('=') && outroTeste(digits);
           break;
         default:
           digito(digits);
           break;
       }
-      console.log('fsmdifdsifkm',listInputs2);
   }
 
-  const operacaoCal = (pOperador:any) => {
-    listInputs2.push(pOperador);
-    listInputs.push(result.current.innerText); 
-    console.log('ta lá',result2.current.innerText[result2.current.innerText.length -1]);
-    // if(result2.current.innerText[result2.current.innerText.length -1] == pOperador){
-    //   console.log('ta aqui')
-    //   result2.current.innerText = listInputs.toString();
-    // }else {
-      if(pOperador == '+' || '-' || '*' || '/') operador(pOperador);teste(pOperador)
-    
+  const operacaoCal = (pOperador:string) => {
+    if(operators.indexOf(listInputs2[listInputs2.length - 1]) < 0){
+        listInputs2.push(pOperador);  
+        operador(pOperador);
+        teste(pOperador)
+    }
   }
 
   const atualizarValor = () => {   
@@ -61,26 +56,25 @@ function App() {
   }
 
   const digito = (pInput:any) => {
-    if(novoNumero) {
-      listInputs2.push(digits);
-      valor = '' + pInput;
-      novoNumero = false;
-    }else {
-      valor += pInput;
-      listInputs2[listInputs2.length -1] = valor;
-    }
-    
-    
+      if(novoNumero ) {
+        listInputs2.push(digits);
+        valor = '' + pInput;
+        novoNumero = false;
+      }else {
+        valor[0] !== '0' && (valor += pInput);
+        listInputs2[listInputs2.length -1] = valor;
+        console.log(listInputs2);                         
+      }
     atualizarValor();
   }
 
   const virgula = () => {
     if(novoNumero) {
-      valor = '0,';
       novoNumero = false;
-      
+      console.log('aq')
     }else if(valor.indexOf('.') == -1) {
       valor += '.';
+      console.log('la')
       digito('');
       atualizarValor();
     }
@@ -89,7 +83,6 @@ function App() {
   const botaoAc = () => {
     novoNumero = true;
     valor = '0';
-    firstValor = 0;
     result.current.innerText = ' '
     operacaoEspera = null;
     result2.current.innerText = ' '
@@ -100,21 +93,31 @@ function App() {
   const botaoBackspace = () => {
     novoNumero = true;
     valor = valor.slice(0, -1)
+    listInputs2.pop();
     
-    novoNumero && valor =='' && (valor = '0') ;
+    if(novoNumero && valor ==''){
+      valor = '0';
+      result2.current.innerText = result2.current.innerText.slice(0, -1)
+      listInputs2 = [result2.current.innerText]; 
+     } ;
+
+    
     atualizarValor()
+   
   }
 
   const convertValor = () => parseFloat(valor.replace('.',','))
 
   const operador = (pOperador:any) => {
-    if(!result2.current.innerText.includes('=')) {
+    screen2 = result2.current.innerText ;
+    console.log(screen2[screen2.length -1])
+    if(screen2[screen2.length -1] !== '=') {
+      console.log('entrou')
       // calcular()
       teste(pOperador);
-      firstValor = convertValor();
       operacaoEspera=pOperador;
       novoNumero = true;
-    }else atualizarValor();
+    }
   }
 
   // function calcular() { 
@@ -131,19 +134,23 @@ function App() {
   // }
 
   const teste = (bol:string) => {
+    console.log('teste',  listInputs2.length)
+    if(listInputs2.length <= 2 && result.current.innerText == '0'){
+      listInputs2[0] = '0';
+    }
     var listResult = listInputs2.toString().replaceAll('/', '÷');
     result2.current.innerText = listResult.replace(/,/g, '') 
     
-    if(bol == '=') {
+    if(bol == '=' && operators.indexOf(listResult[listResult.length - 1]) == -1) {
       listResult = eval(listInputs2.toString().replace(/,/g, ''));
       result2.current.innerText += '=';
       result.current.innerText = listResult.toString().length > 10 ? parseFloat(listResult).toFixed(2) : listResult;
       listInputs2 = ['']; 
     }else result.current.innerText =  '';
+    novoNumero = true;
+    
   }
-  const outroTeste = (bol:any) => {
-    // result2.current.innerText ="" + resultState + " " + listInputs[listInputs.length-1]  + " " + bol + "";
-  }
+ 
 
   return (
     <div className="App">
