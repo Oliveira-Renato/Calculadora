@@ -17,11 +17,13 @@ function App() {
   var digits: string = ''
   var resultState = '';
   var listInputs = [''];
+  var listInputs2 = [''];
 
   function onHanldeInput (pInput:string) {
       digits = pInput && pInput;
+      
       switch(digits){
-        case ',' :
+        case '.' :
           virgula();
           break;
         case 'ac' :
@@ -39,36 +41,36 @@ function App() {
           digito(digits);
           break;
       }
+      console.log('fsmdifdsifkm',listInputs2);
   }
 
   const operacaoCal = (pOperador:any) => {
+    listInputs2.push(pOperador);
     listInputs.push(result.current.innerText); 
-    if(pOperador == '+' || '-' || '*' || '÷') operador(pOperador);teste(pOperador)
+    console.log('ta lá',result2.current.innerText[result2.current.innerText.length -1]);
+    // if(result2.current.innerText[result2.current.innerText.length -1] == pOperador){
+    //   console.log('ta aqui')
+    //   result2.current.innerText = listInputs.toString();
+    // }else {
+      if(pOperador == '+' || '-' || '*' || '/') operador(pOperador);teste(pOperador)
+    
   }
 
   const atualizarValor = () => {   
-    let [parteInteira, parteDecimal] = valor.split(',');
-    let valor2 = '';
-    let beterraba = 0;
-    
-    for(let i = parteInteira.length-1; i >= 0; i--) {
-        if (++beterraba > 3) {
-            valor2 = '.' + valor2;
-            beterraba = 1;
-        }
-        valor2 =parteInteira[i] + valor2;
-    }
-
-    valor2 = valor2 + (parteDecimal?  ',' + parteDecimal: '');
-    valor2 = valor2.replace(/\s/g, '');
-    result.current.innerText =  valor2 && (valor2);
+    result.current.innerText = valor ;
   }
 
   const digito = (pInput:any) => {
     if(novoNumero) {
+      listInputs2.push(digits);
       valor = '' + pInput;
       novoNumero = false;
-    }else valor += pInput;
+    }else {
+      valor += pInput;
+      listInputs2[listInputs2.length -1] = valor;
+    }
+    
+    
     atualizarValor();
   }
 
@@ -77,9 +79,9 @@ function App() {
       valor = '0,';
       novoNumero = false;
       
-    }else if(valor.indexOf(',') == -1) {
-      valor += ',';
-      digito(' ');
+    }else if(valor.indexOf('.') == -1) {
+      valor += '.';
+      digito('');
       atualizarValor();
     }
   }
@@ -91,6 +93,7 @@ function App() {
     result.current.innerText = ' '
     operacaoEspera = null;
     result2.current.innerText = ' '
+    listInputs2 = ['']; 
     atualizarValor();   
   }
 
@@ -106,45 +109,40 @@ function App() {
 
   const operador = (pOperador:any) => {
     if(!result2.current.innerText.includes('=')) {
-      calcular();
+      // calcular()
+      teste(pOperador);
       firstValor = convertValor();
       operacaoEspera=pOperador;
       novoNumero = true;
     }else atualizarValor();
   }
 
-  function calcular() { 
-    console.log('aqui',result2.current.innerText)
-    if(operacaoEspera != null ) {
-        let resultado = 0;
-        switch(operacaoEspera) {
-            case '+':
-                resultado = firstValor + convertValor();
-                break;
-            case '-':
-                resultado = firstValor - convertValor();
-                break;
-            case '*':
-                resultado = firstValor * convertValor();
-                break;
-            case '÷':
-                resultado = firstValor / convertValor();
-                break;
-        }
-        valor = resultado.toString();
-    }
-    novoNumero = true;
-    operacaoEspera = null;
-    firstValor = 0;
-    atualizarValor(); 
-  }
+  // function calcular() { 
+  //   if(operacaoEspera != null ) {
+  //       let resultado = 0;
+  //       teste(operacaoEspera)
+        
+  //       // valor = resultado.toString();
+  //   }
+  //   novoNumero = true;
+  //   operacaoEspera = null;
+  //   firstValor = 0;
+  //   atualizarValor(); 
+  // }
 
   const teste = (bol:string) => {
-    resultState = "" + result2.current.innerText + "" + firstValor + " " + bol + ""; 
-    result2.current.innerText = "" + firstValor + " " + bol + ""; 
+    var listResult = listInputs2.toString().replaceAll('/', '÷');
+    result2.current.innerText = listResult.replace(/,/g, '') 
+    
+    if(bol == '=') {
+      listResult = eval(listInputs2.toString().replace(/,/g, ''));
+      result2.current.innerText += '=';
+      result.current.innerText = listResult.toString().length > 10 ? parseFloat(listResult).toFixed(2) : listResult;
+      listInputs2 = ['']; 
+    }else result.current.innerText =  '';
   }
   const outroTeste = (bol:any) => {
-    result2.current.innerText ="" + resultState + " " + listInputs[listInputs.length-1]  + " " + bol + "";
+    // result2.current.innerText ="" + resultState + " " + listInputs[listInputs.length-1]  + " " + bol + "";
   }
 
   return (
@@ -188,7 +186,7 @@ function App() {
                                 <button onClick={() => onHanldeInput('3')} value={3}><span className="digits">3</span></button>
                             </div>
                             <button onClick={() => onHanldeInput('0')}  className='btn-0'><span className="digits">0</span></button>
-                            <button onClick={() => onHanldeInput(',')}  value=','><span className="digits">,</span></button>
+                            <button onClick={() => onHanldeInput('.')}  value=','><span className="digits">,</span></button>
                         </div>
                     </div>
                 </div>
@@ -199,7 +197,7 @@ function App() {
                         <button onClick={()=>operacaoCal('+')} value='+'><span className="digits">+</span></button><br />
                         <button onClick={()=>operacaoCal('-')} value='-'><span className="digits">-</span></button><br />
                         <button onClick={()=>operacaoCal('*')} value='*'><span className="digits-1">*</span></button><br />
-                        <button onClick={()=>operacaoCal('÷')} value='÷'><span className="digits">÷</span></button>
+                        <button onClick={()=>operacaoCal('/')} value='÷'><span className="digits">÷</span></button>
                         <button onClick={() => onHanldeInput('=')} value='='><span className="digits">=</span></button>
                     </div>
                 </div>
