@@ -15,7 +15,6 @@ function App() {
   var novoNumero = true;//responsavel por verificar nova entrada de digitos
   var operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
-  var resultState = '';
   var listInputs = [''];
   var listInputs2 = [''];
   var screen2:string = '';
@@ -120,18 +119,6 @@ function App() {
     }
   }
 
-  // function calcular() { 
-  //   if(operacaoEspera != null ) {
-  //       let resultado = 0;
-  //       teste(operacaoEspera)
-        
-  //       // valor = resultado.toString();
-  //   }
-  //   novoNumero = true;
-  //   operacaoEspera = null;
-  //   firstValor = 0;
-  //   atualizarValor(); 
-  // }
 
   const teste = (bol:string) => {
     console.log('teste',  listInputs2.length)
