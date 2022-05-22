@@ -34,7 +34,7 @@ textarea {
     border: 1px solid #AAAAAA;
     width: 35.125rem;
     height: 40.375rem;
-    padding: 1px;
+    padding: .6rem;
     background-color: #111111;
     position: relative;
 }
@@ -163,13 +163,13 @@ textarea {
     margin: 0.5rem;
     border-radius: 5%;
     white-space: nowrap;
-    overflow: hidden;
+    // overflow: hidden;
     padding-top: 2rem;
     background-color: #0a0909;
 }
 
 .screen-pai .screen #result-1 {
-    background-color: #0a0909;
+    // background-color: #0a0909;
     display: flex;
     font-size: 3rem;
     padding-right: 1.5rem;
