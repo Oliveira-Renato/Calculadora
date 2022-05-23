@@ -204,7 +204,7 @@ function App() {
                         <button onClick={() => onHanldeInput('clear')} value='clear' className="backspc"><span className="digits-1 "><FontAwesomeIcon icon={faDeleteLeft} /></span></button><br />
                         <button onClick={()=>operacaoCal('+')} value='+'><span className="digits">+</span></button><br />
                         <button onClick={()=>operacaoCal('-')} value='-'><span className="digits">-</span></button><br />
-                        <button onClick={()=>operacaoCal('*')} value='*'><span className="digits-1">*</span></button><br />
+                        <button onClick={()=>operacaoCal('*')} value='*'><span className="digits-1">x</span></button><br />
                         <button onClick={()=>operacaoCal('/')} value='÷'><span className="digits">÷</span></button>
                         <button onClick={() => onHanldeInput('=')} value='='><span className="digits">=</span></button>
                     </div>
