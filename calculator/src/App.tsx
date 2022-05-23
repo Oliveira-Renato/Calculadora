@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import './styles/variables.scss';
 import './styles/pacman.scss'
 import './styles/global.scss';
 import { fa0, fa1, fa2, fa3, fa4, fa5, fa6, fa7, fa8, fa9, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -155,7 +156,7 @@ function App() {
                   <div className="ghost"></div>
                   <div className="pacman"></div>
                   <div className="screen-2">
-                      <span ref={result2} id="result-2"></span>
+                      <span ref={result2} id="result-2" ></span>
                   </div>
                   <span ref={result} id="result-1">
                       0

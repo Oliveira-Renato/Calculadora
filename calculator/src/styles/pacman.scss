@@ -1,39 +1,5 @@
-:root {
-    //colors
-    --color-light: #dcdcdc;
-    --color-bg: #010101;
-    --color-accent: #012ad6;
-    --color-ghost: #f30111;
-    --color-pacman: #f1eb35;
-    --color-dots: #e17f38;
-    --dot-size: 4px;
-    --dot-gutter: 8px;
-    --animation-duration: 4000ms;
-    --animation-easing: linear;
-    //keyframes
-    --bg-top-dots: no-repeat top right / 100% var(--dot-size) repeating-linear-gradient(to right, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
-    --bg-top-line-start: no-repeat top right / 100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-top-line-mid: no-repeat top right / 0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-top-line-restart: no-repeat top left / 0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-top-line-end: no-repeat top left / 100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-right-dots: no-repeat bottom right / var(--dot-size) 100% repeating-linear-gradient(to bottom, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
-    --bg-right-line-start: no-repeat bottom right / var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-right-line-mid: no-repeat bottom right / var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-right-line-restart: no-repeat top right / var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-right-line-end: no-repeat top right / var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-bottom-dots: no-repeat bottom left / 100% var(--dot-size) repeating-linear-gradient(to right, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
-    --bg-bottom-line-start: no-repeat bottom left / 100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-bottom-line-mid: no-repeat bottom left / 0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-bottom-line-restart: no-repeat bottom right / 0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-bottom-line-end: no-repeat bottom right / 100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-left-dots: no-repeat top left / var(--dot-size) 100% repeating-linear-gradient(to top, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
-    --bg-left-line-start: no-repeat bottom left / var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-left-line-mid: no-repeat bottom left / var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-left-line-restart: no-repeat top left / var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
-    --bg-left-line-end: no-repeat top left / var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
-}
-
 .pacman-button {
+    overflow: visible !important;
     background: none;
     color: var(--color-light);
     position: relative;
@@ -259,7 +225,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: var(--color-bg);
+    // background: var(--color-bg);
     &:after {
         // --color-scanline: rgba(255, 255, 255, .075);
         content: '';

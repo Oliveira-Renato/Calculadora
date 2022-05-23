@@ -1,15 +1,14 @@
     @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
-     :root {
-        --color-accent: #012ad6;
-    }
-    
     html {
         font-size: 62.5%;
     }
     
     body {
-        background: #29292e;
-        color: #29292e;
+        background-image: url('/assets/images/bg-classic.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-blend-mode: multiply;
+        background-color: rgba(0, 0, 0, .1);
     }
     
     body,
@@ -36,13 +35,15 @@
     }
     
     .container .field-pai {
+        box-shadow: 0 0 2rem var(--color-ghost);
+        border: 2px solid var(--color-accent);
         display: inline-block;
-        border: 1px solid #AAAAAA;
         width: 35.125rem;
         height: 40.375rem;
-        padding: .6rem;
-        background-color: #111111;
+        padding: 0.6rem;
+        background: var(--color-bg);
         position: relative;
+        border-radius: 1rem;
     }
     
     .container .field-pai .first-div {
@@ -51,12 +52,16 @@
     
     .botoes .field-filho {
         background-color: #0a0909;
+        margin-left: 0.6rem;
     }
     
     .field-filho-2 {
+        box-shadow: 0 0 .5rem var(--color-accent);
+        border: 2px solid var(--color-bg);
         display: flex;
         align-items: center;
         width: 10rem;
+        border-radius: 1rem;
     }
     
     .container-2 {
@@ -65,8 +70,10 @@
     /*----------BOTÕES---------------*/
     
     .field-filho {
-        border: 1px solid #aaaaaa48;
+        box-shadow: 0 0 .5rem var(--color-accent);
+        border: 2px solid var(--color-bg);
         display: block;
+        border-radius: 1rem;
     }
     
     .field-filho .botoes {
@@ -105,7 +112,6 @@
     }
     
     .field-filho-2 {
-        border: 1px solid #aaaaaa48;
         background-color: #0a0909;
         display: block;
         text-align: center;
@@ -136,7 +142,7 @@
     
     .clear:hover,
     .backspc:hover {
-        background-color: rgba(55, 16, 77, 0.733) !important;
+        background-color: var(--color-accent) !important;
     }
     
     .digits {
@@ -151,7 +157,7 @@
     /*--------DISPLAY-----------*/
     
     .screen-pai {
-        background-color: #111010;
+        background: var(--color-bg);
         height: 9rem;
         text-align: center;
         padding-bottom: 1rem;
@@ -164,10 +170,10 @@
         border: 1px solid #aaaaaa48;
         height: 9rem;
         width: 93%;
-        margin: 0.5rem;
+        margin: 0.5rem 0.5rem 0.5rem 1.2rem;
         border-radius: 5%;
         white-space: nowrap;
-        // overflow: hidden;
+        overflow: hidden;
         padding-top: 2rem;
         background-color: #0a0909;
     }
@@ -182,6 +188,8 @@
         position: absolute;
         bottom: 0;
         right: 0;
+        overflow: hidden;
+        width: 290px;
     }
     
     .screen-2 {
@@ -214,9 +222,15 @@
          :root {
             font-size: 50.5%;
         }
+        .screen-pai .screen #result-1 {
+            width: 229px;
+        }
     }
     
     @media (max-width: 280px) {
+        .screen-pai .screen #result-1 {
+            width: 215px;
+        }
          :root {
             font-size: 47.5%;
         }
@@ -229,5 +243,8 @@
     @media (min-width: 1000px) {
          :root {
             font-size: 82.5%;
+        }
+        .screen-pai .screen #result-1 {
+            width: 390px;
         }
     }
