@@ -5,6 +5,9 @@ import './styles/variables.scss';
 import './styles/pacman.scss'
 import './styles/global.scss';
 import { fa0, fa1, fa2, fa3, fa4, fa5, fa6, fa7, fa8, fa9, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+  
+import { Toaster } from 'react-hot-toast';
+import {ThisWelcome} from './hooks/welcome';
 
 type InputsContent = {
   input?: string,
@@ -148,6 +151,8 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster />
+      <ThisWelcome /> 
       <div className="container">
         <div className="field-pai">
           {/* <!--Tela que sera exibida--> */}

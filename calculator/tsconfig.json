@@ -22,6 +22,6 @@
   },
   "include": [
     "src",
-    "src/pages/home/home.tsx",
+    "src/pages/hooks/welcome.tsx",
   ]
 }
