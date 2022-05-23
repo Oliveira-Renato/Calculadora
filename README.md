@@ -1,3 +1,4 @@
-# Calculadora
-### Criando uma calculadora web super bacana usando HTML, CSS e JavaSript. :smiley:
+# WEB CALCULATOR
+### COLLEGE WORK - PROJECT V
+#### Creating a web calculator using React, Typescript and SCSS
 
