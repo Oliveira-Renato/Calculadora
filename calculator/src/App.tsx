@@ -22,7 +22,7 @@ function App() {
   var novoNumero = true;//responsavel por verificar nova entrada de digitos
   var operacaoEspera:any = null;//responsavel por receber o operador para executar o calculo
   var digits: string = ''
-  var listInputs = [''];
+  var listInputs = [''];//just a comment
   var listInputs2 = [''];
   var screen2:string = '';
 
