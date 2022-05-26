@@ -67,7 +67,9 @@ function App() {
         valor = '' + pInput;
         novoNumero = false;
       }else {
-        valor[0] !== '0' && (valor += pInput);
+        console.log('entrou no operador', pInput);
+       if( valor[0] !== '0' || pInput !== '0' ||  pInput !== '.') valor += pInput;
+       console.log('valor', valor[0]);
         listInputs2[listInputs2.length -1] = valor;
         console.log(listInputs2);                         
       }
@@ -77,11 +79,8 @@ function App() {
   const virgula = () => {
     if(novoNumero) {
       novoNumero = false;
-      console.log('aq')
     }else if(valor.indexOf('.') == -1) {
       valor += '.';
-      console.log('la')
-      digito('');
       atualizarValor();
     }
   }
