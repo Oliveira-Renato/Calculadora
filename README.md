@@ -12,6 +12,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## :computer: Projeto
 **Calculadora Web** é uma aplicação que executa as funções aritméticas básicas, como: **adição; subtração; multiplicação e divisão**. **PLUS:** possui uma interface muito legal.
+
 Este projeto foi desenvolvido durante a curso de Análise e Desenvolvimento de Sistemas para a disciplina de PROJETO INTEGRADO V.
 
 Acesse o site clicando [aqui](https://calculadora-web.herokuapp.com/) e confira você mesmo.
