@@ -54,6 +54,9 @@ function App() {
         listInputs2.push(pOperador);  
         operador(pOperador);
         teste(pOperador)
+    }else {
+      result2.current.innerText=result2.current.innerText.replace(listInputs2[listInputs2.length - 1], pOperador == '/'? '÷': pOperador);
+      listInputs2[listInputs2.length - 1] = pOperador
     }
   }
 
