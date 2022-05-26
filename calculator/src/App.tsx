@@ -68,7 +68,7 @@ function App() {
         novoNumero = false;
       }else {
         console.log('entrou no operador', pInput);
-       if( valor[0] !== '0' || pInput !== '0' ||  pInput !== '.') valor += pInput;
+       if( valor[0] !== '0' || pInput !== '0' &&  pInput !== '.') valor += pInput;
        console.log('valor', valor[0]);
         listInputs2[listInputs2.length -1] = valor;
         console.log(listInputs2);                         
