@@ -1,0 +1,687 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap);
+:root {
+    --color-light: #dcdcdc;
+    --color-bg: #000;
+    --color-accent: #012ad6;
+    --color-ghost: #f30111;
+    --color-pacman: #f1eb35;
+    --color-dots: #e17f38;
+    --dot-size: 4px;
+    --dot-gutter: 8px;
+    --animation-duration: 4000ms;
+    --animation-easing: linear;
+    --bg-top-dots: no-repeat top right/100% var(--dot-size) repeating-linear-gradient(to right, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
+    --bg-top-line-start: no-repeat top right/100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-top-line-mid: no-repeat top right/0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-top-line-restart: no-repeat top left/0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-top-line-end: no-repeat top left/100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-right-dots: no-repeat bottom right/var(--dot-size) 100% repeating-linear-gradient(to bottom, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
+    --bg-right-line-start: no-repeat bottom right/var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-right-line-mid: no-repeat bottom right/var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-right-line-restart: no-repeat top right/var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-right-line-end: no-repeat top right/var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-bottom-dots: no-repeat bottom left/100% var(--dot-size) repeating-linear-gradient(to right, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
+    --bg-bottom-line-start: no-repeat bottom left/100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-bottom-line-mid: no-repeat bottom left/0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-bottom-line-restart: no-repeat bottom right/0% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-bottom-line-end: no-repeat bottom right/100% var(--dot-size) linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-left-dots: no-repeat top left/var(--dot-size) 100% repeating-linear-gradient(to top, var(--color-dots), var(--color-dots) var(--dot-size), transparent var(--dot-size), transparent var(--dot-gutter));
+    --bg-left-line-start: no-repeat bottom left/var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-left-line-mid: no-repeat bottom left/var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-left-line-restart: no-repeat top left/var(--dot-size) 100% linear-gradient(to right, var(--color-accent), var(--color-accent));
+    --bg-left-line-end: no-repeat top left/var(--dot-size) 0% linear-gradient(to right, var(--color-accent), var(--color-accent))
+}
+
+.pacman-button {
+    -webkit-animation: infinite animate-border var(--animation-duration) var(--animation-easing);
+    animation: infinite animate-border var(--animation-duration) var(--animation-easing);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+    background: none;
+    background: var(--bg-top-line-start), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-start), var(--bg-left-dots);
+    border: none;
+    box-shadow: 0 0 .5rem var(--color-accent);
+    color: var(--color-light);
+    cursor: pointer;
+    font-family: Press Start\ 2p, sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: .05em;
+    line-height: 1.4;
+    margin: 2rem;
+    overflow: visible!important;
+    padding: 0;
+    position: relative
+}
+
+.pacman-button:focus,
+.pacman-button:hover {
+    outline: none
+}
+
+.pacman-button:focus,
+.pacman-button:focus .ghost,
+.pacman-button:focus .ghost:after,
+.pacman-button:focus .pacman,
+.pacman-button:focus .pacman:after,
+.pacman-button:hover,
+.pacman-button:hover .ghost,
+.pacman-button:hover .ghost:after,
+.pacman-button:hover .pacman,
+.pacman-button:hover .pacman:after {
+    -webkit-animation-play-state: running;
+    animation-play-state: running
+}
+
+.pacman-button:focus .button-label,
+.pacman-button:hover .button-label {
+    box-shadow: 0 0 1rem var(--color-accent)
+}
+
+.pacman-button:active {
+    color: var(--color-accent)
+}
+
+.button-label {
+    border: 4px solid var(--color-accent);
+    box-shadow: 0 0 .5rem var(--color-accent);
+    display: block;
+    margin: 1.5rem;
+    padding: 1.5rem;
+    text-shadow: 0 0 .5rem currentColor;
+    z-index: -1
+}
+
+.ghost {
+    --eye: 50% 50% radial-gradient(ellipse, var(--color-light), var(--color-light) 50%, transparent 50%);
+    -webkit-animation: infinite ghost-walk var(--animation-duration) var(--animation-easing) paused;
+    animation: infinite ghost-walk var(--animation-duration) var(--animation-easing) paused;
+    background: no-repeat left 5% top 30%/var(--eye), no-repeat right 5% top 30%/var(--eye), var(--color-ghost);
+    border-radius: 80% 80% 50% 50%;
+    -webkit-clip-path: polygon(0 100%, 25% 80%, 50% 100%, 75% 80%, 100% 100%, 100% 0, 0 0);
+    clip-path: polygon(0 100%, 25% 80%, 50% 100%, 75% 80%, 100% 100%, 100% 0, 0 0);
+    height: 1.5rem;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 1.375rem
+}
+
+.ghost:after {
+    --pupil: 35% 100% linear-gradient(var(--color-accent), var(--color-accent));
+    -webkit-animation: infinite pupil-shift var(--animation-duration) paused;
+    animation: infinite pupil-shift var(--animation-duration) paused;
+    background: no-repeat 0 0/var(--pupil), no-repeat 100% 0/var(--pupil);
+    content: "";
+    height: 20%;
+    left: 20%;
+    position: absolute;
+    right: 20%;
+    top: 30%
+}
+
+.pacman {
+    -webkit-animation: infinite pacman-walk var(--animation-duration) var(--animation-easing);
+    animation: infinite pacman-walk var(--animation-duration) var(--animation-easing);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+    height: 1.5rem;
+    top: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 1.5rem
+}
+
+.pacman,
+.pacman:after {
+    border-radius: 100%;
+    left: 0;
+    position: absolute
+}
+
+.pacman:after {
+    -webkit-animation: chomp-chomp-chomp .25s linear infinite paused;
+    animation: chomp-chomp-chomp .25s linear infinite paused;
+    background: var(--color-pacman);
+    bottom: 0;
+    -webkit-clip-path: polygon(50% 50%, 80% 0, 100% 0, 100% 100%, 0 100%, 0 0, 20% 0);
+    clip-path: polygon(50% 50%, 80% 0, 100% 0, 100% 100%, 0 100%, 0 0, 20% 0);
+    content: "";
+    display: block;
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 100%
+}
+
+@-webkit-keyframes pupil-shift {
+    0%,
+    24% {
+        -webkit-transform: translate(20%);
+        transform: translate(20%)
+    }
+    25%,
+    49% {
+        -webkit-transform: translateY(35%);
+        transform: translateY(35%)
+    }
+    50%,
+    74% {
+        -webkit-transform: translate(-20%);
+        transform: translate(-20%)
+    }
+    75%,
+    to {
+        -webkit-transform: translateY(-35%);
+        transform: translateY(-35%)
+    }
+}
+
+@keyframes pupil-shift {
+    0%,
+    24% {
+        -webkit-transform: translate(20%);
+        transform: translate(20%)
+    }
+    25%,
+    49% {
+        -webkit-transform: translateY(35%);
+        transform: translateY(35%)
+    }
+    50%,
+    74% {
+        -webkit-transform: translate(-20%);
+        transform: translate(-20%)
+    }
+    75%,
+    to {
+        -webkit-transform: translateY(-35%);
+        transform: translateY(-35%)
+    }
+}
+
+@-webkit-keyframes chomp-chomp-chomp {
+    0% {
+        -webkit-clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+        clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0)
+    }
+    50% {
+        -webkit-clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+        clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0)
+    }
+}
+
+@keyframes chomp-chomp-chomp {
+    0% {
+        -webkit-clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+        clip-path: polygon(50% 50%, 100% 0, 100% 0, 100% 100%, 0 100%, 0 0, 0 0)
+    }
+    50% {
+        -webkit-clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
+        clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0)
+    }
+}
+
+@-webkit-keyframes animate-border {
+    0% {
+        background: var(--bg-top-line-start), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-start), var(--bg-left-dots)
+    }
+    25% {
+        background: var(--bg-top-line-mid), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    25.1% {
+        background: var(--bg-top-line-restart), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    50% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-mid), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    50.1% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-restart), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    75% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-mid), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    75.1% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-restart), var(--bg-bottom-dots), var(--bg-left-line-restart), var(--bg-left-dots)
+    }
+    to {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-end), var(--bg-bottom-dots), var(--bg-left-line-end), var(--bg-left-dots)
+    }
+}
+
+@keyframes animate-border {
+    0% {
+        background: var(--bg-top-line-start), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-start), var(--bg-left-dots)
+    }
+    25% {
+        background: var(--bg-top-line-mid), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    25.1% {
+        background: var(--bg-top-line-restart), var(--bg-top-dots), var(--bg-right-line-start), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    50% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-mid), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    50.1% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-restart), var(--bg-right-dots), var(--bg-bottom-line-start), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    75% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-mid), var(--bg-bottom-dots), var(--bg-left-line-mid), var(--bg-left-dots)
+    }
+    75.1% {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-restart), var(--bg-bottom-dots), var(--bg-left-line-restart), var(--bg-left-dots)
+    }
+    to {
+        background: var(--bg-top-line-end), var(--bg-top-dots), var(--bg-right-line-end), var(--bg-right-dots), var(--bg-bottom-line-end), var(--bg-bottom-dots), var(--bg-left-line-end), var(--bg-left-dots)
+    }
+}
+
+@-webkit-keyframes ghost-walk {
+    0%,
+    to {
+        --pupil-pos: 0%;
+        left: 0;
+        top: 0
+    }
+    25% {
+        --pupil-pos: 100%;
+        left: 100%;
+        top: 0
+    }
+    50% {
+        left: 100%;
+        top: 100%
+    }
+    75% {
+        left: 0;
+        top: 100%
+    }
+}
+
+@keyframes ghost-walk {
+    0%,
+    to {
+        --pupil-pos: 0%;
+        left: 0;
+        top: 0
+    }
+    25% {
+        --pupil-pos: 100%;
+        left: 100%;
+        top: 0
+    }
+    50% {
+        left: 100%;
+        top: 100%
+    }
+    75% {
+        left: 0;
+        top: 100%
+    }
+}
+
+@-webkit-keyframes pacman-walk {
+    0% {
+        left: 0;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+    25%,
+    26% {
+        left: 0;
+        top: 0;
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+    26% {
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    50%,
+    51% {
+        left: 100%;
+        top: 0;
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    51% {
+        -webkit-transform: translate(-50%, -50%) rotate(180deg);
+        transform: translate(-50%, -50%) rotate(180deg)
+    }
+    75% {
+        left: 100%;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(180deg);
+        transform: translate(-50%, -50%) rotate(180deg)
+    }
+    76% {
+        left: 100%;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(270deg);
+        transform: translate(-50%, -50%) rotate(270deg)
+    }
+    to {
+        left: 0;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(270deg);
+        transform: translate(-50%, -50%) rotate(270deg)
+    }
+}
+
+@keyframes pacman-walk {
+    0% {
+        left: 0;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+    25%,
+    26% {
+        left: 0;
+        top: 0;
+        -webkit-transform: translate(-50%, -50%) rotate(0);
+        transform: translate(-50%, -50%) rotate(0)
+    }
+    26% {
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    50%,
+    51% {
+        left: 100%;
+        top: 0;
+        -webkit-transform: translate(-50%, -50%) rotate(90deg);
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    51% {
+        -webkit-transform: translate(-50%, -50%) rotate(180deg);
+        transform: translate(-50%, -50%) rotate(180deg)
+    }
+    75% {
+        left: 100%;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(180deg);
+        transform: translate(-50%, -50%) rotate(180deg)
+    }
+    76% {
+        left: 100%;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(270deg);
+        transform: translate(-50%, -50%) rotate(270deg)
+    }
+    to {
+        left: 0;
+        top: 100%;
+        -webkit-transform: translate(-50%, -50%) rotate(270deg);
+        transform: translate(-50%, -50%) rotate(270deg)
+    }
+}
+
+body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh
+}
+
+body:after {
+    background: repeating-linear-gradient(to bottom, var(--color-scanline), var(--color-scanline) 1px, transparent 1px, transparent 5px);
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 3
+}
+
+html {
+    font-size: 62.5%
+}
+
+body {
+    background-blend-mode: multiply;
+    background-color: rgba(0, 0, 0, .1);
+    background-image: url(../media/bg-classic.042716e47839d1b75c63.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+body,
+button,
+input,
+textarea {
+    font: 400 1.6rem Poppins, sans-serif
+}
+
+button {
+    border: 4px solid var(--color-accent);
+    box-shadow: 0 0 .5rem var(--color-accent);
+    margin: 1.5rem;
+    text-shadow: 0 0 .5rem currentColor;
+    z-index: -1
+}
+
+.container {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden
+}
+
+.container .field-pai {
+    background: var(--color-bg);
+    border: 2px solid var(--color-accent);
+    border-radius: 1rem;
+    box-shadow: 0 0 2rem var(--color-ghost);
+    display: inline-block;
+    height: 40.375rem;
+    padding: .6rem;
+    position: relative;
+    width: 35.125rem
+}
+
+.container .field-pai .first-div {
+    display: inline-block
+}
+
+.botoes .field-filho {
+    background-color: #0a0909;
+    margin-left: .6rem
+}
+
+.field-filho-2 {
+    align-items: center;
+    border: 2px solid var(--color-bg);
+    border-radius: 1rem;
+    box-shadow: 0 0 .5rem var(--color-accent);
+    display: flex;
+    width: 10rem
+}
+
+.container-2 {
+    display: flex
+}
+
+.field-filho {
+    border: 2px solid var(--color-bg);
+    border-radius: 1rem;
+    box-shadow: 0 0 .5rem var(--color-accent);
+    display: block
+}
+
+.field-filho .botoes {
+    margin: .6rem;
+    padding-bottom: 2rem;
+    padding-top: .7rem
+}
+
+.field-filho .botoes button {
+    background-color: rgba(34, 17, 34, .067);
+    border: none;
+    color: #fff;
+    height: 4rem;
+    margin: .2rem;
+    padding: .2rem;
+    width: 6rem;
+    width: 7rem
+}
+
+.field-filho .botoes button:hover,
+.field-filho-2 .botoes button:hover {
+    background-color: #012ad6;
+    box-shadow: 0 0 2rem var(--color-accent);
+    cursor: pointer;
+    outline: none;
+    transition: .5s
+}
+
+.field-filho .botoes .btn-0 {
+    width: 14.4rem
+}
+
+.field-filho .botoes .c {
+    position: relative;
+    text-align: end
+}
+
+.field-filho-2 {
+    background-color: #0a0909;
+    display: block;
+    text-align: center
+}
+
+.field-filho-2 .botoes {
+    margin: 1.4rem .7rem;
+    text-align: center
+}
+
+.field-filho-2 .botoes button {
+    background-color: rgba(33, 33, 33, .129);
+    border: none;
+    color: #fff;
+    height: 3.2rem;
+    margin: .2rem;
+    width: 6rem
+}
+
+.field-filho-2 .botoes button button:hover {
+    box-shadow: 0 0 1rem var(--color-accent)!important
+}
+
+.backspc,
+.clear {
+    background-color: #54095f!important
+}
+
+.backspc:hover,
+.clear:hover {
+    background-color: var(--color-accent)!important
+}
+
+.digits {
+    font-size: 2rem
+}
+
+.digits,
+.digits-1 {
+    font-weight: bolder
+}
+
+.digits-1 {
+    font-size: 1.5rem
+}
+
+.screen-pai {
+    background: var(--color-bg);
+    height: 9rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    text-align: center
+}
+
+.screen-pai .screen {
+    background-color: #0a0909;
+    border: 1px solid hsla(0, 0%, 67%, .282);
+    border-radius: 5%;
+    height: 9rem;
+    margin: .5rem .5rem .5rem 1.2rem;
+    overflow: hidden;
+    padding-top: 2rem;
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+    width: 93%
+}
+
+.screen-pai .screen #result-1 {
+    bottom: 0;
+    color: #fff;
+    display: flex;
+    font-size: 3.4rem;
+    font-weight: 700;
+    justify-content: right;
+    overflow: hidden;
+    padding: 0 1.5rem 1rem;
+    position: absolute;
+    right: 0;
+    width: 290px
+}
+
+.screen-2 {
+    height: 5rem;
+    padding: 1.6rem 1.2rem 0 0;
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.screen-2 #result-2 {
+    color: #fff;
+    display: flex;
+    font-size: 1.8rem;
+    font-weight: 500;
+    justify-content: right;
+    letter-spacing: .3rem;
+    padding-top: 1rem
+}
+
+@media(max-width:350px) {
+     :root {
+        font-size: 55.5%;
+        font-size: 50.5%
+    }
+    .screen-pai .screen #result-1 {
+        width: 229px
+    }
+}
+
+@media(max-width:280px) {
+    .screen-pai .screen #result-1 {
+        width: 215px
+    }
+     :root {
+        font-size: 47.5%
+    }
+    .container {
+        display: grid
+    }
+}
+
+@media(min-width:1000px) {
+     :root {
+        font-size: 82.5%
+    }
+    .screen-pai .screen #result-1 {
+        width: 390px
+    }
+}
+
+
+/*# sourceMappingURL=main.6cc881fe.css.map*/

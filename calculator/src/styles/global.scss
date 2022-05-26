@@ -212,9 +212,9 @@
     /*====== MEDIA QUERY =======*/
     /*=========== SMALL DEVICES ===========*/
     
-    @media (max-width: 350px) {
-         :root {
-            font-size: 55.5%;
+    @media (max-width: 450px) {
+        html {
+            font-size: 57.5%;
         }
     }
     
